@@ -16,6 +16,10 @@ find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 
 include_directories(${Python3_INCLUDE_DIRS})
 
+add_compile_definitions(
+    DATA_DOWNLOADER_PATH="${CMAKE_SOURCE_DIR}/DataDownloader"
+)
+
 add_executable(backtester ${SOURCES})
 
 target_link_libraries(backtester PRIVATE ${Python3_LIBRARIES})

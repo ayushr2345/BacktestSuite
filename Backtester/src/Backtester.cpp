@@ -9,7 +9,7 @@ int main(int argc, char* argv[])
     if (argc < 4)
     {
         LOG_ERROR("Insufficient arguments provided. Expected 4 arguments.");
-        std::cerr << "Usage: Backtester <symbol> <timeframe> <start_date> <end_date>" << std::endl;
+        std::cerr << "Usage: backtester <symbol> <timeframe> <start_date> <end_date>" << std::endl;
         return 1;
     }
 
@@ -34,7 +34,16 @@ int main(int argc, char* argv[])
 
     // Add script directory to Python path using the configured path
     PyRun_SimpleString("import sys");
-    std::string pythonPath = "sys.path.append('" + currentPath.string() + "\\..\\..\\DataDownloader')";
+    std::string dataDownloaderPath = DATA_DOWNLOADER_PATH;
+    std::string pythonPath;
+
+#ifdef _WIN32
+    LOG_INFO("Windows Build System, replacing \\ with /");
+    std::replace(dataDownloaderPath.begin(), dataDownloaderPath.end(), '\\', '/');
+#endif // !_WIN32
+
+    pythonPath = "sys.path.append('" + dataDownloaderPath + "')";
+        
     LOG_DEBUG("Python Path: {}", pythonPath);
     PyRun_SimpleString(pythonPath.c_str());
 
@@ -80,7 +89,7 @@ int main(int argc, char* argv[])
     else
     {
         PyErr_Print();
-        LOG_ERROR("Python failed to load 'downloader' module");
+        LOG_ERROR("Python failed to load 'DataDownloader' module");
     }
 
     Py_Finalize();
