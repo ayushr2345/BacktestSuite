@@ -361,3 +361,13 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+
+# Data downloader specific
+DataDownloader/DataDownloaderEnv
+DataDownloader/.ipynb_checkpoints
+DataDownloader/.env
+DataDownloader/testing.py
+DataDownloader/Untitled.ipynb
+DataDownloader/data
+
