@@ -1,3 +1,4 @@
 py5paisa
 python-dotenv
 pyotp
+tqdm
